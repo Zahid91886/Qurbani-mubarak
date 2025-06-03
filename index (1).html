@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>عید الاضحیٰ مبارک</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap');
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Nastaliq Urdu', serif;
+      background: linear-gradient(to top, #0f2027, #203a43, #2c5364);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      height: 100vh;
+      overflow: hidden;
+      text-align: center;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .content {
+      position: relative;
+      z-index: 2;
+    }
+    .moon {
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle at 40% 40%, #fffde7, #b3e5fc);
+      border-radius: 50%;
+      box-shadow: 0 0 20px 10px #fff9c4, inset 10px 10px 20px #c5cae9;
+      position: relative;
+      margin: 20px auto;
+      animation: moveMoon 20s infinite linear alternate;
+    }
+    @keyframes moveMoon {
+      0% { transform: translateX(-50px); }
+      100% { transform: translateX(50px); }
+    }
+    .moon::before {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 140px;
+      background: #0f2027;
+      border-radius: 70px / 110px;
+      top: 10px;
+      left: 55px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin: 10px;
+      color: #ffd54f;
+      text-shadow: 0 0 8px #ffca28;
+    }
+    input {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      text-align: center;
+      font-family: 'Noto Nastaliq Urdu', serif;
+      margin: 15px 0;
+      width: 90%;
+      max-width: 400px;
+    }
+    button {
+      padding: 12px 30px;
+      background-color: #25D366;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+      transition: background 0.3s ease;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #128c7e;
+    }
+    #displayName {
+      font-size: 2.2rem;
+      color: #00ffc3;
+      text-shadow: 0 0 10px #00e6e6, 0 0 20px #00b3ff;
+      margin-top: 15px;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      0% { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
+      100% { text-shadow: 0 0 20px #00ffff, 0 0 30px #00ffcc; }
+    }
+    .writer {
+      margin-top: 25px;
+      font-size: 1.5rem;
+      color: #ff4081;
+      text-shadow: 0 0 8px #ff80ab, 0 0 15px #f50057;
+      animation: pulse 2s infinite alternate;
+    }
+    @keyframes pulse {
+      from { transform: scale(1); opacity: 0.8; }
+      to { transform: scale(1.05); opacity: 1; }
+    }
+    .footer {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+    @media (max-width: 480px) {
+      h1 { font-size: 2rem; }
+      input { width: 90%; }
+      #displayName { font-size: 1.8rem; }
+      .writer { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+<audio id="backgroundAudio" autoplay loop>
+  <!-- 👇 अपनी MP3 फाइल का नाम यहाँ डालें -->
+  <source src="eid-mubarak.mp3" type="audio/mp3">
+  آپ کا براؤزر آڈیو کو سپورٹ نہیں کرتا۔
+</audio>
+
+<canvas id="fireworks"></canvas>
+<div class="content">
+  <div class="moon"></div>
+  <h1>عید الاضحیٰ مبارک ہو</h1>
+  <input type="text" id="userName" placeholder="اپنا نام یہاں لکھیں" oninput="showName()" />
+  <div id="displayName"></div>
+  <button onclick="shareOnWhatsApp()">WhatsApp پر شیئر کریں</button>
+  <div class="writer">✍️ تحریر: Zahic Bhai</div>
+  <div class="footer">❤️ آپ کی طرف سے ایک خاص تحفہ</div>
+</div>
+
+<script>
+const audio = document.getElementById("backgroundAudio");
+window.addEventListener("DOMContentLoaded", () => {
+  audio.muted = false;
+  audio.play().catch(()=>{});
+});
+
+function showName() {
+  const name = document.getElementById("userName").value.trim();
+  document.getElementById("displayName").textContent = name ? `✨ ${name} ✨` : '';
+}
+
+function shareOnWhatsApp() {
+  const name = document.getElementById("userName").value.trim();
+  const message = name 
+    ? `🌙✨ عید الاضحیٰ مبارک ہو! یہ خاص تحفہ ${name} کی طرف سے۔ ❤️\n\nhttps://zahic.github.io/Eid-al-adha-Mubarak/`
+    : `🌙✨ عید الاضحیٰ مبارک ہو! یہ خاص تحفہ آپ کیلئے ❤️\n\nhttps://zahic.github.io/Eid-al-adha-Mubarak/`;
+  const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+  window.open(url, "_blank");
+}
+
+// Fireworks
+const canvas = document.getElementById('fireworks');
+const ctx = canvas.getContext('2d');
+let fireworks = [];
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+class Firework {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = canvas.height;
+    this.targetY = Math.random() * canvas.height / 2;
+    this.color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+    this.size = Math.random() * 2 + 2;
+    this.speed = Math.random() * 3 + 4;
+    this.exploded = false;
+    this.particles = [];
+  }
+  update() {
+    if (!this.exploded) {
+      this.y -= this.speed;
+      if (this.y <= this.targetY) {
+        this.exploded = true;
+        for (let i = 0; i < 50; i++) {
+          this.particles.push({
+            x: this.x,
+            y: this.y,
+            angle: Math.random() * 2 * Math.PI,
+            speed: Math.random() * 3 + 2,
+            alpha: 1
+          });
+        }
+      }
+    } else {
+      this.particles.forEach(p => {
+        p.x += Math.cos(p.angle) * p.speed;
+        p.y += Math.sin(p.angle) * p.speed;
+        p.alpha -= 0.02;
+      });
+      this.particles = this.particles.filter(p => p.alpha > 0);
+      if (this.particles.length === 0) { this.reset(); }
+    }
+  }
+  draw() {
+    if (!this.exploded) {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    } else {
+      this.particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2, 0, 2 * Math.PI);
+        ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
+        ctx.fill();
+      });
+    }
+  }
+}
+for (let i = 0; i < 10; i++) fireworks.push(new Firework());
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  fireworks.forEach(firework => {
+    firework.update();
+    firework.draw();
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+</body>
+</html>
